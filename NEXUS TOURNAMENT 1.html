@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Knockout Tournament</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 100px;
+    }
+    h1 {
+      font-size: 48px;
+      color: black;
+    }
+    h2 {
+      font-size: 24px;
+      color: gray;
+    }
+    button {
+      font-size: 20px;
+      margin: 10px;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+    #nameInput {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome the Knockout Tournament</h1>
+  <h2>Will you join?</h2>
+  
+  <div id="choices">
+    <button onclick="joinYes()">Yes</button>
+    <button onclick="joinNo()">No</button>
+  </div>
+  
+  <div id="nameInput" style="display:none;">
+    <p>Enter your name:</p>
+    <input type="text" id="playerName" />
+    <button onclick="saveName()">Submit</button>
+  </div>
+  
+  <div id="message"></div>
+  
+  <script>
+    function joinYes() {
+      document.getElementById('choices').style.display = 'none';
+      document.getElementById('nameInput').style.display = 'block';
+    }
+    
+    function joinNo() {
+      document.getElementById('choices').style.display = 'none';
+      document.getElementById('message').innerText = "Ok, maybe next time!";
+    }
+    
+    function saveName() {
+      const name = document.getElementById('playerName').value.trim();
+      if (name) {
+        // Save to localStorage
+        let players = JSON.parse(localStorage.getItem('players')) || [];
+        players.push(name);
+        localStorage.setItem('players', JSON.stringify(players));
+        
+        document.getElementById('nameInput').style.display = 'none';
+        document.getElementById('message').innerText = "Thanks for joining, " + name + "!";
+      } else {
+        alert("Please enter a name.");
+      }
+    }
+  </script>
+</body>
+</html>
